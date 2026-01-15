@@ -7,10 +7,10 @@ services:
       MARIADB_ROOT_PASSWORD: example
       MARIADB_USER: agente
       MARIADB_USER_PASSWORD: 0traClave
-      MARIADB_DATABASE: ciber
+      MARIADB_DATABASE: videojuegos_db
     volumes:
       - mariadb_data:/var/lib/mysql
-      - ./Chuches.sql://docker-entrypoint-initdb.d/Chuches.sql:ro
+      - ./Videojuegos.sql://docker-entrypoint-initdb.d/Videojuegos.sql:ro
     user: mysql
   phpmyadmin:
     image: phpmyadmin
@@ -28,7 +28,7 @@ services:
     environment:
       DB_USERNAME: root
       DB_PASSWORD: example
-      DB_DATABASE: ciber
+      DB_DATABASE: videojuegos_db
       DB_HOST: mariadb
       DB_PORT: 3306
       PORT: 8080
