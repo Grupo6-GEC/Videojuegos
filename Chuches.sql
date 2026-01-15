@@ -4,7 +4,7 @@ CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario VARCHAR(100) NOT NULL,
     clave VARCHAR(255) NOT NULL,
-    perfil ENUM('admin', 'user') NOT NULL
+    perfil ENUM('admin', 'user') NOT NULL DEFAULT 'user'
  );
 
 CREATE TABLE videojuegos (
