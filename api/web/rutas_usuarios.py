@@ -25,8 +25,8 @@ def registro():
         login_json = request.json
         username = login_json['username']
         password = login_json['password']
-        profile = login_json['profile']
-        respuesta,code= controlador_usuarios.alta_usuario(username,password,profile)
+        #profile = login_json['profile']
+        respuesta,code= controlador_usuarios.alta_usuario(username,password)
     else:
         respuesta={"status":"Bad request"}
         code=401

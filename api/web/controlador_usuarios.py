@@ -21,14 +21,14 @@ def login_usuario(username,password):
         code=500
     return ret,code
 
-def alta_usuario(username,password,perfil):
+def alta_usuario(username,password):
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
             cursor.execute("SELECT perfil FROM usuarios WHERE usuario = %s",(username,))
             usuario = cursor.fetchone()
             if usuario is None:
-                cursor.execute("INSERT INTO usuarios(usuario,clave,perfil) VALUES('"+ username +"','"+  password+"','"+ perfil+"')")
+                cursor.execute("INSERT INTO usuarios(usuario,clave) VALUES('"+ username +"','"+  password+"')")
                 if cursor.rowcount == 1:
                     conexion.commit()
                     ret={"status": "OK" }

@@ -2,7 +2,7 @@ from bd import obtener_conexion
 import sys
 
 
-def convertir_chuche_a_json(chuche):
+def convertir_videojuego_a_json(chuche):
     d = {}
     d['id'] = chuche[0]
     d['nombre'] = chuche[1]
@@ -12,7 +12,7 @@ def convertir_chuche_a_json(chuche):
     d['ingredientes']=chuche[5]
     return d
 
-def insertar_chuche(nombre, descripcion, precio,foto,ingredientes):
+def insertar_videojuego(nombre, descripcion, precio,foto,ingredientes):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         cursor.execute("INSERT INTO chuches(nombre, descripcion, precio,foto,ingredientes) VALUES (%s, %s, %s,%s,%s)",
@@ -23,7 +23,7 @@ def insertar_chuche(nombre, descripcion, precio,foto,ingredientes):
     code=200
     return ret,code
 
-def obtener_chuches():
+def obtener_videojuegos():
     chuchesjson=[]
     try:
         conexion = obtener_conexion()
@@ -32,7 +32,7 @@ def obtener_chuches():
             chuches = cursor.fetchall()
             if chuches:
                 for chuche in chuches:
-                    chuchesjson.append(convertir_chuche_a_json(chuche))
+                    chuchesjson.append(convertir_videojuego_a_json(chuche))
         conexion.close()
         code=200
     except:
@@ -40,7 +40,7 @@ def obtener_chuches():
         code=500
     return chuchesjson,code
 
-def obtener_chuche_por_id(id):
+def obtener_videojuego_por_id(id):
     chuchejson = {}
     try:
         conexion = obtener_conexion()
@@ -48,14 +48,14 @@ def obtener_chuche_por_id(id):
             cursor.execute("SELECT id, nombre, descripcion, precio,foto,ingredientes FROM chuches WHERE id =" + id)
             chuche = cursor.fetchone()
             if chuche is not None:
-                chuchejson = convertir_chuche_a_json(chuche)
+                chuchejson = convertir_videojuego_a_json(chuche)
         conexion.close()
         code=200
     except:
         print("Excepcion al consultar una chuche", flush=True)
         code=500
     return chuchejson,code
-def eliminar_chuche(id):
+def eliminar_videojuego(id):
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:

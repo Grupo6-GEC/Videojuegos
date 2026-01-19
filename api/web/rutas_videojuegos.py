@@ -1,17 +1,17 @@
 from flask import request, Blueprint, jsonify
-import controlador_chuches
+import controlador_videojuegos
 from funciones_auxiliares import Encoder
 
 bp = Blueprint('chuches', __name__)
 
 @bp.route("/",methods=["GET"])
 def chuches():
-    respuesta,code= controlador_chuches.obtener_chuches()
+    respuesta,code= controlador_videojuegos.obtener_chuches()
     return jsonify(respuesta), code
     
 @bp.route("/<id>",methods=["GET"])
 def chuche_por_id(id):
-    respuesta,code = controlador_chuches.obtener_chuche_por_id(id)
+    respuesta,code = controlador_videojuegos.obtener_chuche_por_id(id)
     return jsonify(respuesta), code
 
 @bp.route("/",methods=["POST"])
@@ -24,7 +24,7 @@ def guardar_chuche():
         precio=chuche_json["precio"]
         foto=chuche_json["foto"]
         ingredientes=chuche_json["ingredientes"]
-        respuesta,code=controlador_chuches.insertar_chuche(nombre, descripcion,precio,foto,ingredientes)
+        respuesta,code=controlador_videojuegos.insertar_chuche(nombre, descripcion,precio,foto,ingredientes)
     else:
         respuesta={"status":"Bad request"}
         code=401
@@ -32,7 +32,7 @@ def guardar_chuche():
 
 @bp.route("/<int:id>", methods=["DELETE"])
 def eliminar_chuche(id):
-    respuesta,code=controlador_chuches.eliminar_chuche(id)
+    respuesta,code=controlador_videojuegos.eliminar_chuche(id)
     return jsonify(respuesta), code
 
 @bp.route("/", methods=["PUT"])
@@ -46,7 +46,7 @@ def actualizar_chuche():
         precio=float(chuche_json["precio"])
         foto=chuche_json["foto"]
         ingredientes=chuche_json["ingredientes"]
-        respuesta,code=controlador_chuches.actualizar_chuche(id,nombre,descripcion,precio,foto,ingredientes)
+        respuesta,code=controlador_videojuegos.actualizar_chuche(id,nombre,descripcion,precio,foto,ingredientes)
     else:
         respuesta={"status":"Bad request"}
         code=401

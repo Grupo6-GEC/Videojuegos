@@ -1,30 +1,31 @@
 services:
   mariadb:
     image: mariadb
-    container_name: mariadb
-    restart: always
+    container_name: mariadb6
+    restart: unless-stopped
     environment:
       MARIADB_ROOT_PASSWORD: example
       MARIADB_USER: agente
       MARIADB_USER_PASSWORD: 0traClave
       MARIADB_DATABASE: videojuegos_db
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - mariadb_datab6:/var/lib/mysql
       - ./Videojuegos.sql://docker-entrypoint-initdb.d/Videojuegos.sql:ro
     user: mysql
   phpmyadmin:
     image: phpmyadmin
-    container_name: phpmyadmin
-    restart: always
+    container_name: phpmyadminb6
+    restart: unless-stopped
     environment:
       - PMA_HOST=mariadb
     ports:
-      - 9093:80
+      - 7106:80
     depends_on:
       - mariadb
   python:
     build: ./api
-    container_name: python
+    container_name: pythonb6
+    restart: unless-stopped
     environment:
       DB_USERNAME: root
       DB_PASSWORD: example
@@ -38,4 +39,4 @@ services:
     depends_on:
       - mariadb
 volumes:
-  mariadb_data:
+  mariadb_datab6:
