@@ -15,16 +15,20 @@
         myHeaders.append("Content-Type", "application/json");
         function guardar(){
             let nombre=document.getElementById("nombre").value;
-            let descripcion=document.getElementById("descripcion").value;
-            let ingredientes =document.getElementById("ingredientes").value;
-            let precio=document.getElementById("precio").value;
             let foto=document.getElementById("foto").value;
+            let descripcion=document.getElementById("descripcion").value;
+            let precio=document.getElementById("precio").value;
+            let creador=document.getElementById("creador").value;
+            let ruta_foto=document.getElementById("ruta_foto").value;
+            let tienda=document.getElementById("tienda").value;
             let datos=JSON.stringify({
                 "nombre":nombre,
+                "foto":foto,
                 "descripcion":descripcion,
-                "ingredientes":ingredientes,
                 "precio":precio,
-                "foto":foto
+                "creador":creador,
+                "ruta_foto":ruta_foto,
+                "tienda":tienda
             });
             var requestOptions = {
                 method: 'POST',
@@ -32,19 +36,19 @@
                 body: datos
             };
 
-            fetch("/api/chuches", requestOptions)
+            fetch("/api/videojuegos", requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     if (result.status == "OK"){
-                        alert("Chuche guardada")
-                        location.href="chuches.html"
+                        alert("Videojuego almacenado")
+                        location.href="videojuego.html"
                     } else {
-                        alert("La chuche no ha podido ser guardado")
+                        alert("El videojuego no ha podido ser almacenado")
                     }
                 })
                 .catch(error => {
                     console.log('error', error);
-                    alert("Se ha producido un error y la chuche no ha podido ser guardado")
+                    alert("Se ha producido un error y el videojuego no ha podido ser almacenado")
                 });
         }
     </script>
@@ -61,7 +65,7 @@
         </div>
         <div class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="chuches.html">Chuches</a>
+                <a class="navbar-item" href="videojuego.html">Videojuego</a>
             </div>
             <div class="navbar-end">
                 <div class="navbar-item">
@@ -72,20 +76,29 @@
   <section class="section">
     <div class="columns">
         <div class="column">
-            <h3 class="is-size-3">Agregar Chuche</h3>
+            <h3 class="is-size-3">Agregar Videojuego</h3>
+            <form>
                 <label for="nombre">Nombre:</label>
                 <input required type="text" class="input" placeholder="Nombre" name="nombre" id="nombre">
-                <label for="descripcion">Descripcion</label>
-                <input required type="text" class="input" placeholder="Descripcion" name="descripcion" id="descripcion">
-                <label for="ingredientesS">Ingredientes</label>
-                <input required type="text" class="input" placeholder="Ingredientes" name="ingredientes" id="ingredientes">
-                <label for="precio">Precio</label>
-                <input required type="number" class="input" placeholder="Precio" name="precio" id="precio">
                 <label for="foto">Foto</label>
                 <input required type="text" class="input" placeholder="Foto" name="foto" id="foto">                
                 <input required type="file" class="input" placeholder="Archivo Foto" name="filefoto" id="filefoto">
+                <label for="descripcion">Descripcion</label>
+                <input required type="text" class="input" placeholder="Descripcion" name="descripcion" id="descripcion">
+                <label for="precio">Precio</label>
+                <input required type="number" class="input" placeholder="Precio" name="precio" id="precio">
+                <label for="creador">Creador</label>
+                <input required type="text" class="input" placeholder="Creador" name="creador" id="creador">
+                
+                <!-- ruta foto ponerlo de otra manera -->
+                <label for="ruta_foto">Ruta foto</label>
+                <input required type="text" class="input" placeholder="Ruta_foto" name="ruta_foto" id="ruta_foto">
+                <!-- ruta foto ponerlo de otra manera -->
+
+                <label for="tienda">Tienda</label>
+                <input required type="text" class="input" placeholder="Tienda" name="tienda" id="tienda">
                 <button type="button" onclick="guardar()" class="button is-success mt-2">Guardar</button>
-                <a href="chuches.html" class="button is-primary mt-2">Volver</a>
+                <a href="videojuego.html" class="button is-primary mt-2">Volver</a>
             </form>
         </div>
     </div>
