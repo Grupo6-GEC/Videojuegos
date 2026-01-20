@@ -38,5 +38,16 @@ services:
       - 9094:8080
     depends_on:
       - mariadb
+  apache:
+    build:
+      context: .  # El contexto es la raíz del proyecto
+      dockerfile: apache/Dockerfile
+    container_name: apacheb6
+    restart: unless-stopped
+    ports:
+      - 6106:80
+    depends_on:
+      - python
+
 volumes:
   mariadb_datab6:
