@@ -18,13 +18,14 @@
     <script>
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        onload=function(){
+        window.onload = function() {
             pedirComentarios();
         }
+
         function guardarComentario() {
             var raw = JSON.stringify({
                 "usuario": document.getElementById("usuario").value,
-                "descripcion": document.getElementById("descripcion").value
+                "contenido": document.getElementById("contenido").value
             });
 
             var requestOptions = {
@@ -40,24 +41,26 @@
                         alert(`Comentario almacenado`);
                         pedirComentarios();
                     } else {
-                        alert(`El comentario no ha podio almacenarse`)
+                        alert(`El comentario no ha podido almacenarse`)
                     }
                 })
                 .catch(error => console.log('error', error));
         }
+
         function pintarComentarios(lista){
-            let tbody=document.getElementsByTagName("tbody")[0];
-            tbody.innerText="";
+            let tbody = document.getElementsByTagName("tbody")[0];
+            tbody.innerHTML = "";
 
             lista.forEach(comentario => {
-                let texto=`<tr>
-                        <td>${comentario.usuario}</td>
-                        <td>${comentario.descripcion}</td>
-                        <td>
-                        </tr>`;
-                tbody.innerHTML+=texto                            
+                let texto = `<tr>
+                                <td>${comentario.usuario}</td>
+                                <td>${comentario.videojuego || '-'}</td>
+                                <td>${comentario.contenido}</td>
+                            </tr>`;
+                tbody.innerHTML += texto;
             });
         }
+
         function pedirComentarios(){
             var requestOptions = {
                 method: 'GET',
@@ -88,7 +91,8 @@
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Descripcion</th>
+                            <th>Juego</th>
+                            <th>Contenido</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,15 +100,41 @@
                 </table>
             </div>
         </div>  
-    </section>   
-            <h3 class="is-size-3">Agregar Comentario</h3>
-                <label for="usuario">Usuario:</label>
-                <input required type="text" class="input" placeholder="usuario" name="usuario" id="usuario">
-                <label for="descripcion">Descripcion:</label>
-                <input required type="text" class="input" placeholder="Comentario" name="descripcion" id="descripcion">
-                <button type="button" onclick="guardarComentario()" class="button is-success mt-2">Guardar</button>
+    </section>
 
-        </div>  
-    </section>    
+    <section class="section">
+        <div class="columns">
+            <div class="column">
+                <h3 class="is-size-3">Agregar Comentario</h3>
+                <br>
+                <div class="field">
+                    <label class="label" for="usuario">Usuario:</label>
+                    <div class="control">
+                        <input required type="text" class="input" placeholder="Usuario" name="usuario" id="usuario">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="videojuego">Juego:</label>
+                    <div class="control">
+                        <select id="videojuego" class="input">
+                            <option value="">-- Selecciona un juego --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="contenido">Contenido:</label>
+                    <div class="control">
+                        <input required type="text" class="input" placeholder="Comentario" name="contenido" id="contenido">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="button" onclick="guardarComentario()" class="button is-success mt-2">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </body>
 </html>
