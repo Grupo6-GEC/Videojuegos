@@ -19,48 +19,55 @@
         var urlParams = new URLSearchParams(queryString);
         var id = urlParams.get('id');
         onload = function () {
-            obtenerDatosChuche(id);
+            obtenerDatosVideojuego(id);
         }
-        function obtenerDatosChuche(id) {
+        function obtenerDatosVideojuego(id) {
             var requestOptions = {
                 method: 'GET',
                 headers: myHeaders
             };
 
-            fetch("/api/chuches/" + id, requestOptions)
+            fetch("/api/videojuegos/" + id, requestOptions)
                 .then(response => response.json())
-                .then(result => pintarChuche(result))
+                .then(result => pintarVideojuego(result))
                 .catch(error => {
                     alert("Ha habido un error al recuperar los datos del libro");
-                    location.href = "chuches.html";
+                    location.href = "videojuego.html";
                 });
 
         }
-        function pintarChuche(chuche) {
-            console.log(chuche);
+        function pintarVideojuego(videojuego) {
+            console.log(videojuego);
             
-            document.getElementById("nombre").value = chuche.nombre;
-            document.getElementById("descripcion").value = chuche.descripcion;
-            document.getElementById("ingredientes").value = chuche.ingredientes;
-            document.getElementById("precio").value = chuche.precio;
-            document.getElementById("foto").src = chuche.foto;
+            document.getElementById("nombre").value = videojuego.nombre;
+            document.getElementById("foto").src = videojuego.foto;
+            document.getElementById("descripcion").value = videojuego.descripcion;
+            document.getElementById("precio").value = videojuego.precio;
+            document.getElementById("creador").value = videojuego.creador;
+            document.getElementById("ruta_foto").value = videojuego.ruta_foto;
+            document.getElementById("tienda").value = videojuego.tienda;
         }
 
         function guardar() {
             let nombre = document.getElementById("nombre").value;
-            let descripcion= document.getElementById("descripcion").value;
-            let ingredientes = document.getElementById("ingredientes").value;
-            let precio = document.getElementById("precio").value;
-           // let precioIVA = document.getElementById("precioIVA").value;
             let foto = document.getElementById("foto").value;
+            let descripcion= document.getElementById("descripcion").value;
+            let precio = document.getElementById("precio").value;
+            let creador = document.getElementById("creador").value;
+            let ruta_foto = document.getElementById("ruta_foto").value;
+            let tienda = document.getElementById("tienda").value;
+           // let precioIVA = document.getElementById("precioIVA").value;
             let datos = JSON.stringify({
                 "id": id,
                 "nombre": nombre,
+                "foto": foto,
                 "descripcion": descripcion,
-                "ingredientes": ingredientes,
                 "precio": precio,
               //  "precioIVA": precioIVA,
-                "foto": foto
+                "creador":creador,
+                "ruta_foto":ruta_foto,
+                "tienda":tienda
+
             });
             var requestOptions = {
                 method: 'PUT',
@@ -71,20 +78,20 @@
             console.log(requestOptions);
             
 
-            fetch("/api/chuches/", requestOptions)
+            fetch("/api/videojuegos/", requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     
                     if (result.status == "OK") {
-                        alert("chuche modificado")
-                        location.href = "chuches.html"
+                        alert("videojuego modificado")
+                        location.href = "videojuego.html"
                     } else {
-                        alert("La chuche no ha podido ser modificado")
+                        alert("El videojuego no ha podido ser modificado")
                     }
                 })
                 .catch(error => {
                     console.log('error', error);
-                    alert("Se ha producido un error y la chuche no ha podido ser modificado")
+                    alert("Se ha producido un error y el videojuego no ha podido ser modificado")
                 });
         }
     </script>
@@ -102,7 +109,7 @@
         </div>
         <div class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="chuches.html">Chuches</a>
+                <a class="navbar-item" href="videojuego.html">Videojuego</a>
             </div>
             <div class="navbar-end">
                 <div class="navbar-item">
@@ -113,20 +120,33 @@
     <section class="section">
         <div class="columns">
             <div class="column">
-                <h3 class="is-size-3">Editar chuche</h3>
+                <h3 class="is-size-3">Editar Videojuego</h3>
+                <form>
                 <label for="nombre">Nombre:</label>
                 <input required type="text" class="input" placeholder="Nombre" name="nombre" id="nombre">
-                <label for="descripcion">Descripcion</label>
-                <input required type="text" class="input" placeholder="Descripcion" name="descripcion" id="descripcion">
-                <label for="ingredientes">Ingredientes</label>
-                <input required type="text" class="input" placeholder="Ingredientes" name="ingredientes" id="ingredientes">
-                <label for="precio">Precio</label>
-                <input required type="number" class="input" placeholder="Precio" name="precio" id="precio">
                 <input required type="text" class="input" placeholder="Foto" name="foto" id="foto">                
                 <input required type="file" class="input" placeholder="Archivo Foto" name="filefoto" id="filefoto">
-                <img src="#" alt="Foto" width="500" height="600" id="foto">
+                
+                <!-- Tiene el mismo id pero no se como cambiarlo o si va bien -->
+                <img src="#" alt="Foto" width="500" height="600" id="foto"> 
+                <!-- Tiene el mismo id pero no se como cambiarlo -->
+                
+                <label for="descripcion">Descripcion</label>
+                <input required type="text" class="input" placeholder="Descripcion" name="descripcion" id="descripcion">
+                <label for="precio">Precio</label>
+                <input required type="number" class="input" placeholder="Precio" name="precio" id="precio">
+                <label for="creador">Creador</label>
+                <input required type="text" class="input" placeholder="Creador" name="creador" id="creador">
+                
+                <!-- ruta foto ponerlo de otra manera -->
+                <label for="ruta_foto">Ruta foto</label>
+                <input required type="text" class="input" placeholder="Ruta_foto" name="ruta_foto" id="ruta_foto">
+                <!-- ruta foto ponerlo de otra manera -->
+
+                <label for="tienda">Tienda</label>
+                <input required type="text" class="input" placeholder="Tienda" name="tienda" id="tienda">
                 <button type="button" onclick="guardar()" class="button is-success mt-2">Guardar</button>
-                <a href="chuches.html" class="button is-primary mt-2">Volver</a>
+                <a href="videojuego.html" class="button is-primary mt-2">Volver</a>
                 </form>
             </div>
         </div>
