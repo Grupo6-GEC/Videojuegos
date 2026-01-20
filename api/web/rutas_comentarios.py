@@ -5,21 +5,25 @@ import controlador_comentarios
 bp = Blueprint('comentarios', __name__)
 
 @bp.route("/",methods=['POST'])
-def login():
-    content_type = request.headers.get('Content-Type')
-    if (content_type == 'application/json'):
-        comentario_json = request.json
-        usuario = comentario_json['usuario']
-        descripcion = comentario_json['descripcion']
-        respuesta,code= controlador_comentarios.insertar_comentario(usuario,descripcion)
+def insertar_comentario():
+    if request.headers.get('Content-Type') == 'application/json':
+        data = request.json
+        id_usuario = data['id_usuario']
+        id_videojuego = data['id_videojuego']
+        contenido = data['contenido']
+
+        respuesta, code = controlador_comentarios.insertar_comentario(
+            id_usuario, id_videojuego, contenido
+        )
     else:
-        respuesta={"status":"Bad request"}
-        code=401
+        respuesta = {"status": "Bad request"}
+        code = 400
+
     return jsonify(respuesta), code
 
 @bp.route("/",methods=['GET'])
-def consultaComentarios():
-    respuesta,code= controlador_comentarios.obtener_comentarios()
+def consulta_comentarios():
+    respuesta, code = controlador_comentarios.obtener_comentarios()
     return jsonify(respuesta), code
 
 
