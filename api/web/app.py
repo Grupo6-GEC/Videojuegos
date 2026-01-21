@@ -23,7 +23,7 @@ def create_app():
 
     @app.errorhandler(500)
     def server_error(error):
-        print('An exception occurred during a request. ERROR:' + error, flush=True)
+        print(f'An exception occurred during a request. ERROR: {error}', flush=True)
         ret={"status": "Internal Server Error"}
         return jsonify(ret), 500
 

@@ -27,6 +27,11 @@ CREATE TABLE comentarios (
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
+CREATE TABLE lista_token_baneado (
+    token_hash CHAR(64) PRIMARY KEY,
+    token TEXT NOT NULL,
+    expiracion TIMESTAMP NOT NULL
+);
 INSERT INTO usuarios (usuario, clave, perfil) VALUES
 ('alice', 'alice123', 'user'),
 ('bob', 'bob123', 'user'),

@@ -2,53 +2,65 @@ from flask import request, Blueprint, jsonify
 import controlador_videojuegos
 from funciones_auxiliares import Encoder
 
-bp = Blueprint('chuches', __name__)
+bp = Blueprint('videojuego', __name__)
 
 @bp.route("/",methods=["GET"])
-def chuches():
-    respuesta,code= controlador_videojuegos.obtener_chuches()
+def videojuegos():
+    respuesta,code= controlador_videojuegos.obtener_videojuegos()
     return jsonify(respuesta), code
-    
+
+###
+
 @bp.route("/<id>",methods=["GET"])
-def chuche_por_id(id):
-    respuesta,code = controlador_videojuegos.obtener_chuche_por_id(id)
+def videojuego_por_id(id):
+    respuesta,code = controlador_videojuegos.obtener_videojuego_por_id(id)
     return jsonify(respuesta), code
+
+###
 
 @bp.route("/",methods=["POST"])
-def guardar_chuche():
+def guardar_videojuego():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
-        chuche_json = request.json
-        nombre = chuche_json["nombre"]
-        descripcion = chuche_json["descripcion"]
-        precio=chuche_json["precio"]
-        foto=chuche_json["foto"]
-        ingredientes=chuche_json["ingredientes"]
-        respuesta,code=controlador_videojuegos.insertar_chuche(nombre, descripcion,precio,foto,ingredientes)
+        videojuego_json = request.json
+        nombre = videojuego_json["nombre"]
+        foto=videojuego_json["foto"]
+        descripcion = videojuego_json["descripcion"]
+        precio=videojuego_json["precio"]
+        creador=videojuego_json["creador"]
+        ruta_foto=videojuego_json["ruta_foto"]
+        tienda=videojuego_json["tienda"]
+        respuesta,code=controlador_videojuegos.insertar_videojuego(nombre, foto, descripcion, precio, creador, ruta_foto, tienda)
     else:
         respuesta={"status":"Bad request"}
-        code=401
+        code=400
     return jsonify(respuesta), code
+
+####
 
 @bp.route("/<int:id>", methods=["DELETE"])
-def eliminar_chuche(id):
-    respuesta,code=controlador_videojuegos.eliminar_chuche(id)
+def eliminar_videojuego(id):
+    respuesta,code=controlador_videojuegos.eliminar_videojuego(id)
     return jsonify(respuesta), code
 
+###
+
 @bp.route("/", methods=["PUT"])
-def actualizar_chuche():
+def actualizar_videojuego():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
-        chuche_json = request.json
-        id = chuche_json["id"]
-        nombre = chuche_json["nombre"]
-        descripcion = chuche_json["descripcion"]
-        precio=float(chuche_json["precio"])
-        foto=chuche_json["foto"]
-        ingredientes=chuche_json["ingredientes"]
-        respuesta,code=controlador_videojuegos.actualizar_chuche(id,nombre,descripcion,precio,foto,ingredientes)
+        videojuego_json = request.json
+        id = videojuego_json["id"]
+        nombre = videojuego_json["nombre"]
+        foto=videojuego_json["foto"]
+        descripcion = videojuego_json["descripcion"]
+        precio=float(videojuego_json["precio"])
+        creador=videojuego_json["creador"]
+        ruta_foto=videojuego_json["ruta_foto"]
+        tienda=videojuego_json["tienda"]
+        respuesta,code=controlador_videojuegos.actualizar_videojuego(id, nombre, foto, descripcion, precio, creador, ruta_foto, tienda)
     else:
         respuesta={"status":"Bad request"}
-        code=401
+        code=400
     return jsonify(respuesta), code
 
