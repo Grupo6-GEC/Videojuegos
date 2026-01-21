@@ -14,8 +14,8 @@ def guardar_fichero(nombre,contenido):
         contenido.save(ruta_fichero)
         respuesta={"status": "OK"}
         code=200
-    except:
-        print("Excepcion al guardar el fichero", flush=True)  
+    except Exception as e:
+        print("Excepción al guardar el fichero:", e, flush=True) 
         respuesta={"status": "ERROR"}
         code=500
     return respuesta, code
