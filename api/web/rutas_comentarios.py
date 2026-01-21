@@ -1,6 +1,7 @@
 from __future__ import print_function
 from flask import request,Blueprint, jsonify
 import controlador_comentarios
+from funciones_token import token_existente
 
 bp = Blueprint('comentarios', __name__)
 
@@ -23,7 +24,14 @@ def insertar_comentario():
 
 @bp.route("/",methods=['GET'])
 def consulta_comentarios():
+
+    token_valido= token_existente(request.json)
+
+    if token_valido == False:
+        return jsonify({"status":"Token no valido"}), 401
+
     respuesta, code = controlador_comentarios.obtener_comentarios()
+
     return jsonify(respuesta), code
 
 

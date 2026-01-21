@@ -13,7 +13,8 @@ def login_usuario(username,password):
             if usuario is None:
                 ret = {"status": "ERROR","mensaje":"Usuario/clave erroneo" }
             else:
-                token = generar_token(username,usuario)
+                perfil = usuario[0]
+                token = generar_token(username,perfil)
                 print("TOKEN:", token, flush=True)
                 ret = {"status": "OK","token": token}
         code=200
