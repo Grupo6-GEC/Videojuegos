@@ -9,10 +9,11 @@ tiempoDeSesion = 30
 #def decodificar_token (token):
 #    return jwt.decode(token, os.environ.get("TOKEN_SECRET"), algorithms=os.environ.get("ALGORITMO"))
 
-def generar_token (username,perfil):
+def generar_token (username,perfil,id_usuario):
     ahora = datetime.now(timezone.utc)
     expira = ahora + timedelta(minutes=tiempoDeSesion)
     datos = {
+        "id":id_usuario,
         "username": username,
         "perfil": perfil,
         "exp": int(expira.timestamp())

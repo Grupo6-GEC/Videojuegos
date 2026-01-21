@@ -7,14 +7,15 @@ def login_usuario(username,password):
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
-            cursor.execute("SELECT perfil FROM usuarios WHERE usuario = %s and clave= %s",(username,password))
+            cursor.execute("SELECT id, perfil FROM usuarios WHERE usuario = %s and clave= %s",(username,password))
             usuario = cursor.fetchone()
             
             if usuario is None:
                 ret = {"status": "ERROR","mensaje":"Usuario/clave erroneo" }
             else:
-                perfil = usuario[0]
-                token = generar_token(username,perfil)
+                id_usuario = usuario[0]
+                perfil = usuario[1]
+                token = generar_token(username,perfil,id_usuario)
                 print("TOKEN:", token, flush=True)
                 ret = {"status": "OK","token": token}
         code=200
