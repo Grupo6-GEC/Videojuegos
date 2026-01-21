@@ -30,6 +30,7 @@ def insertar_videojuego(nombre, foto, descripcion, precio, creador, ruta_foto, t
 #####
 
 def obtener_videojuegos():
+    
     videojuegosjson=[]
     try:
         conexion = obtener_conexion()
@@ -49,6 +50,7 @@ def obtener_videojuegos():
 ###
 
 def obtener_videojuego_por_id(id):
+    
     videojuegojson = {}
     try:
         conexion = obtener_conexion()
@@ -67,6 +69,7 @@ def obtener_videojuego_por_id(id):
 ###
 
 def eliminar_videojuego(id):
+
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
