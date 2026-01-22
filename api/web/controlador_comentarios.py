@@ -13,14 +13,28 @@ def insertar_comentario(id_usuario, id_videojuego, contenido):
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
-            sql = """
+
+            # comprobar videojuego
+            cursor.execute(
+                "SELECT id FROM videojuegos WHERE id = %s",
+                (id_videojuego,)
+            )
+            if cursor.fetchone() is None:
+                return {"status": "ERROR", "message": "El videojuego no existe"}, 400
+
+            cursor.execute(
+                """
                 INSERT INTO comentarios (id_usuario, id_videojuego, contenido)
                 VALUES (%s, %s, %s)
-            """
-            cursor.execute(sql, (id_usuario, id_videojuego, contenido))
+                """,
+                (id_usuario, id_videojuego, contenido)
+            )
+
             conexion.commit()
         conexion.close()
+
         return {"status": "OK"}, 200
+
     except Exception as e:
         print("Error al insertar comentario:", e, flush=True)
         return {"status": "ERROR"}, 500
