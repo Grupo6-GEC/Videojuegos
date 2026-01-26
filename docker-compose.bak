@@ -1,29 +1,60 @@
 services:
   mariadb:
     image: mariadb
-    container_name: mariadb
-    restart: always
+    container_name: mariadb6
+    restart: unless-stopped
     environment:
       MARIADB_ROOT_PASSWORD: example
       MARIADB_USER: agente
       MARIADB_USER_PASSWORD: 0traClave
-      MARIADB_DATABASE: ciber
+      MARIADB_DATABASE: videojuegos_db
     volumes:
-      - mariadb_data:/var/lib/mysql
-      - ./Chuches.sql://docker-entrypoint-initdb.d/Chuches.sql
+      - mariadb_datab6:/var/lib/mysql
+      - ./Videojuegos.sql://docker-entrypoint-initdb.d/Videojuegos.sql:ro
     user: mysql
     ports:
       - 3306:3306
+      
   phpmyadmin:
     image: phpmyadmin
-    container_name: phpmyadmin
-    restart: always
+    container_name: phpmyadminb6
+    restart: unless-stopped
     environment:
       - PMA_HOST=mariadb
     ports:
-      - 9093:80
+      - 7106:80
     depends_on:
       - mariadb
+
+  python:
+    build: ./api
+    container_name: pythonb6
+    restart: unless-stopped
+    environment:
+      DB_USERNAME: root
+      DB_PASSWORD: example
+      DB_DATABASE: videojuegos_db
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      PORT: 8080
+      HOST: 0.0.0.0
+      TOKEN_SECRET: mi_clave_secreta
+      ALGORITMO: HS256
+    ports:
+      - 9094:8080
+    depends_on:
+      - mariadb
+  apache:
+    build:
+      context: .  # El contexto es la raíz del proyecto
+      dockerfile: apache/Dockerfile
+    container_name: apacheb6
+    restart: unless-stopped
+    ports:
+      - 6106:80
+    depends_on:
+      - python
+
 volumes:
-  mariadb_data:
+  mariadb_datab6:
 

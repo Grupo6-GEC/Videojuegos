@@ -41,6 +41,7 @@ def insertar_comentario(username, id_videojuego, contenido):
         print("Error al insertar comentario:", e, flush=True)
         return {"status": "ERROR", "mensaje": str(e)}, 500
 
+
 def obtener_comentarios():
     comentariosjson = []
     try:

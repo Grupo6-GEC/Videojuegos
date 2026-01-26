@@ -9,20 +9,24 @@ def login_usuario(username,password):
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
-            cursor.execute("SELECT perfil FROM usuarios WHERE usuario = %s and clave= %s",(username,password))
+            cursor.execute("SELECT id, perfil FROM usuarios WHERE usuario = %s and clave= %s",(username,password))
             usuario = cursor.fetchone()
             
             if usuario is None:
                 ret = {"status": "ERROR","mensaje":"Usuario/clave erroneo" }
             else:
-                token = generar_token(username,usuario)
+                id_usuario = usuario[0]
+                perfil = usuario[1]
+                token = generar_token(username,perfil,id_usuario)
                 print("TOKEN:", token, flush=True)
                 ret = {"status": "OK","token": token}
         code=200
         conexion.close()
-    except Exception as e:
+    except:
         print("Excepcion al validar al usuario", flush=True) 
         print("ERROR REAL:", repr(e), flush=True)  
+        ret={"status":"ERROR"}
+        code=500
     return ret,code
 
 def alta_usuario(username,password):

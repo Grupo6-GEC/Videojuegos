@@ -56,9 +56,9 @@
             }
 
             var raw = JSON.stringify({
-                "username": username,
-                "id_videojuego": parseInt(id_videojuego),
-                "contenido": contenido
+                "usuario": document.getElementById("usuario").value,
+                "id_videojuego": document.getElementById("videojuego").value,
+                "contenido": document.getElementById("contenido").value
             });
 
             var requestOptions = {

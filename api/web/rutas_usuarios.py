@@ -3,6 +3,7 @@ from flask import request,Blueprint, jsonify
 from funciones_auxiliares import Encoder
 import controlador_usuarios
 from controlador_token import insertar_token_invalido_db, token_valido_no_baneado
+from funciones_token import token_existente
 
 bp = Blueprint('usuarios', __name__)
 
@@ -33,16 +34,16 @@ def registro():
         code=401
     return jsonify(respuesta), code
 
-
 @bp.route("/logout",methods=['POST'])
 def logout():
-    if not request.is_json:
-        return jsonify({"status":"Bad request"}), 400
-    login_json = request.json
-    if "token" not in login_json:
-        return jsonify({"status":"Missing token"}), 400
-    token = login_json["token"]
-    respuesta,code= insertar_token_invalido_db(token)
+
+    peticion = request.json
+    token_valido= token_existente(peticion)
+
+    if token_valido == False:
+        return jsonify({"status":"Token no valido"}), 401
+
+    respuesta,code= insertar_token_invalido_db(peticion["token"], token_valido)
     return jsonify(respuesta), code
 
 #recordar añadir token_valido_no_baneado a controlador_token
@@ -57,3 +58,4 @@ def prueba():
     
     respuesta = token_valido_no_baneado(token)
     return jsonify(respuesta), 200
+

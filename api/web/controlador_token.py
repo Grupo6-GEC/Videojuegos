@@ -1,16 +1,14 @@
 from bd import obtener_conexion
 from datetime import datetime, timezone
 import hashlib
-from funciones_token import validar_token
+
+#from funciones_token import validar_token
 
 
-def insertar_token_invalido_db(token):
-    token_decodificado = validar_token(token)
-    if(token_decodificado == None):
-        return {"status":"Token invalido"},200
+def insertar_token_invalido_db(token, token_decodificado):
 
     expiracion = token_decodificado["exp"]
-
+    
     if isinstance(expiracion, int):
         expiracion = datetime.fromtimestamp(expiracion, tz=timezone.utc)
 
@@ -57,16 +55,23 @@ def Comprobar_token_invalidado(token):
         conexion.close()
         print(baneado)
         if baneado != 0:
-                return True
+            return True
         return False
+    
     except Exception as e: 
         print("Fallo al comprobar token invalido:", repr(e), flush=True)  
         return False
 
 
 def token_valido_no_baneado (token):
+    return 0
+#     token_decodificado = validar_token(token)
 
-    if not Comprobar_token_invalidado(token):
-        return False
+#     if not token_decodificado:
+#         return False
+        
+#     if not Comprobar_token_invalidado(token):
+#         return False
 
-    return validar_token(token)
+#     return token_decodificado
+
