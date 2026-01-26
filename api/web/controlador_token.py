@@ -29,7 +29,7 @@ def insertar_token_invalido_db(token, token_decodificado):
 
                 if cursor.rowcount == 1:
                     conexion.commit()
-                    ret={"status": "Sesion cerrada con exito" }
+                    ret={"status":"OK","message": "Sesion cerrada con exito" }
                     code=200
                 else:
                     ret={"status": "ERROR" }

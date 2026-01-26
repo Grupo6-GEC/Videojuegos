@@ -37,13 +37,18 @@ def registro():
 @bp.route("/logout",methods=['POST'])
 def logout():
 
-    peticion = request.json
-    token_valido= token_existente(peticion)
+    auth = request.headers.get("Authorization")
+    if not auth:
+        return jsonify({"status": "ERROR", "message": "Token requerido"}), 401
 
-    if token_valido == False:
-        return jsonify({"status":"Token no valido"}), 401
+    token = auth.replace("Bearer ", "")
 
-    respuesta,code= insertar_token_invalido_db(peticion["token"], token_valido)
+    token_valido = token_existente({"token": token})
+    if token_valido is False:
+        return jsonify({"status": "ERROR", "message": "No autorizado"}), 401
+
+
+    respuesta,code= insertar_token_invalido_db(token, token_valido)
     return jsonify(respuesta), code
 
 #recordar añadir token_valido_no_baneado a controlador_token

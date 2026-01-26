@@ -28,7 +28,6 @@
                 "username": document.getElementById("username").value,
                 "password": document.getElementById("password").value
             });
-
             var requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
@@ -39,6 +38,7 @@
                 .then(response => response.json())
                 .then(result => {
                     if (result.status == "OK") {
+                        localStorage.setItem("token",result.token);
                         location.href = "videojuego.html";
                     } else {
                         document.getElementsByClassName("error")[0].style.display = "block";
