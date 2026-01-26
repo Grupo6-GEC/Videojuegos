@@ -11,14 +11,24 @@
     <title>Document</title>
     <script>
         var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+        //myHeaders.append("Content-Type", "application/json");
+
+        let token = localStorage.getItem("token");
+        if (!token) {
+            alert("Debes iniciar sesión");
+            window.location.href = "index.html";
+        }
+
+        myHeaders.append("Authorization", "Bearer " + token);
+
         function enviarArchivo(){
             const formData = new FormData();
             formData.append('fichero',document.getElementById("fichero").files[0]);
             formData.append('nombre',document.getElementById("nombre").value);
             var requestOptions = {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: myHeaders,
             };
 
             fetch("/api/ficheros/", requestOptions)
@@ -40,12 +50,17 @@
         function verArchivo(){
             var requestOptions = {
                 method: 'GET',
+                headers: myHeaders,
             };
 
             fetch("/api/ficheros/" + document.getElementById("nombreArchivo").value, requestOptions)
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(result => {
-                    document.getElementById("contenidoArchivo").innerText=result;
+                    if(result.status == "ERROR"){
+                        alert(result.message)
+                        return
+                    }
+                    document.getElementById("contenidoArchivo").innerText=result.contenido;
                 })
                 .catch(error => {
                     console.log('error', error);

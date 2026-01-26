@@ -22,7 +22,7 @@ def login_usuario(username,password):
                 ret = {"status": "OK","token": token}
         code=200
         conexion.close()
-    except:
+    except Exception as e:
         print("Excepcion al validar al usuario", flush=True) 
         print("ERROR REAL:", repr(e), flush=True)  
         ret={"status":"ERROR"}
