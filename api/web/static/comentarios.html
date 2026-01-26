@@ -18,9 +18,19 @@
     <script>
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
+
+        let token = localStorage.getItem("token");
+        if (!token) {
+            alert("Debes iniciar sesión");
+            window.location.href = "login.html";
+        }
+
+        myHeaders.append("Authorization", "Bearer " + token);
+
         window.onload = function() {
             pedirVideojuegos();
             pedirComentarios();
+            pedirVideojuegos();
         }
 
         function pedirVideojuegos(){
@@ -46,39 +56,33 @@
         }
 
         function guardarComentario() {
-            var username = document.getElementById("usuario").value;
-            var id_videojuego = document.getElementById("videojuego").value;
-            var contenido = document.getElementById("contenido").value;
+            let contenido = document.getElementById("contenido").value.trim();
+            let id_videojuego = document.getElementById("videojuego").value;
 
-            if (!username || !id_videojuego || !contenido) {
-                alert("Por favor completa todos los campos");
+            if (!contenido || !id_videojuego) {
+                alert("Selecciona un juego y escribe un comentario");
                 return;
             }
 
             var raw = JSON.stringify({
-                "usuario": document.getElementById("usuario").value,
-                "id_videojuego": document.getElementById("videojuego").value,
-                "contenido": document.getElementById("contenido").value
+                "id_videojuego": parseInt(id_videojuego),
+                "contenido": contenido
             });
 
-            var requestOptions = {
+            fetch("/api/comentarios/", {
                 method: 'POST',
                 headers: myHeaders,
                 body: raw
-            };
-
-            fetch("/api/comentarios/", requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    if (result.status == "OK"){
-                        alert(`Comentario almacenado`);
-                        document.getElementById("contenido").value = "";
-                        pedirComentarios();
-                    } else {
-                        alert(`Error: ${result.mensaje || 'El comentario no ha podido almacenarse'}`)
-                    }
-                })
-                .catch(error => console.log('error', error));
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.status === "OK") {
+                    alert("Comentario guardado");
+                    pedirComentarios();
+                } else {
+                    alert(result.message);
+                }
+            });
         }
 
         function pintarComentarios(lista){
@@ -114,6 +118,22 @@
                 });
         }
 
+        function pedirVideojuegos(){
+            fetch("/api/videojuegos/")
+                .then(response => response.json())
+                .then(videojuegos => {
+                    let select = document.getElementById("videojuego");
+                    select.innerHTML = `<option value="">-- Selecciona un juego --</option>`;
+
+                    videojuegos.forEach(v => {
+                        let option = document.createElement("option");
+                        option.value = v.id;
+                        option.textContent = v.nombre;
+                        select.appendChild(option);
+                    });
+                });
+        }
+
     </script>
 </head>
 <body>
@@ -141,12 +161,6 @@
             <div class="column">
                 <h3 class="is-size-3">Agregar Comentario</h3>
                 <br>
-                <div class="field">
-                    <label class="label" for="usuario">Usuario:</label>
-                    <div class="control">
-                        <input required type="text" class="input" placeholder="Usuario" name="usuario" id="usuario">
-                    </div>
-                </div>
                 <div class="field">
                     <label class="label" for="videojuego">Juego:</label>
                     <div class="control">

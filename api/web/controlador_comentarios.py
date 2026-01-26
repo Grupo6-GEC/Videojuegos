@@ -13,30 +13,27 @@ def obtener_usuario_por_nombre(username):
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
-            cursor.execute("SELECT id FROM usuarios WHERE usuario = %s", (username,))
-            result = cursor.fetchone()
-        conexion.close()
-        return result[0] if result else None
-    except Exception as e:
-        print("Error al buscar usuario:", e, flush=True)
-        return None
+            # comprobar videojuego
+            cursor.execute(
+                "SELECT id FROM videojuegos WHERE id = %s",
+                (id_videojuego,)
+            )
+            if cursor.fetchone() is None:
+                return {"status": "ERROR", "message": "El videojuego no existe"}, 400
 
-def insertar_comentario(username, id_videojuego, contenido):
-    try:
-        id_usuario = obtener_usuario_por_nombre(username)
-        if id_usuario is None:
-            return {"status": "ERROR", "mensaje": "Usuario no encontrado"}, 404
-
-        conexion = obtener_conexion()
-        with conexion.cursor() as cursor:
-            sql = """
+            cursor.execute(
+                """
                 INSERT INTO comentarios (id_usuario, id_videojuego, contenido)
                 VALUES (%s, %s, %s)
-            """
-            cursor.execute(sql, (id_usuario, id_videojuego, contenido))
+                """,
+                (id_usuario, id_videojuego, contenido)
+            )
+
             conexion.commit()
         conexion.close()
+
         return {"status": "OK"}, 200
+
     except Exception as e:
         print("Error al insertar comentario:", e, flush=True)
         return {"status": "ERROR", "mensaje": str(e)}, 500
