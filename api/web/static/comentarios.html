@@ -22,7 +22,7 @@
         let token = localStorage.getItem("token");
         if (!token) {
             alert("Debes iniciar sesión");
-            window.location.href = "login.html";
+            window.location.href = "index.html";
         }
 
         myHeaders.append("Authorization", "Bearer " + token);
@@ -119,9 +119,22 @@
         }
 
         function pedirVideojuegos(){
-            fetch("/api/videojuegos/")
+
+            var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+            };
+
+            fetch("/api/videojuegos/", requestOptions)
                 .then(response => response.json())
                 .then(videojuegos => {
+
+                    if(videojuegos.status == "ERROR") {
+                        alert(videojuegos.message)
+                        return
+                    }
+                    
+
                     let select = document.getElementById("videojuego");
                     select.innerHTML = `<option value="">-- Selecciona un juego --</option>`;
 
@@ -131,6 +144,9 @@
                         option.textContent = v.nombre;
                         select.appendChild(option);
                     });
+                }).catch(error => {
+                    console.log('error', error);
+                    alert("Ha habido un error al recuperar los videojuegos.")
                 });
         }
 

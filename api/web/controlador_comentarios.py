@@ -9,10 +9,11 @@ def convertir_comentario_a_json(comentario):
     d['contenido'] = comentario[3]
     return d
 
-def obtener_usuario_por_nombre(username):
+def insertar_comentario(id_usuario, id_videojuego, contenido):
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
+
             # comprobar videojuego
             cursor.execute(
                 "SELECT id FROM videojuegos WHERE id = %s",
@@ -36,7 +37,7 @@ def obtener_usuario_por_nombre(username):
 
     except Exception as e:
         print("Error al insertar comentario:", e, flush=True)
-        return {"status": "ERROR", "mensaje": str(e)}, 500
+        return {"status": "ERROR"}, 500
 
 
 def obtener_comentarios():
