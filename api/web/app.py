@@ -12,8 +12,8 @@ def create_app():
     from rutas_usuarios import bp as usuarios_bp
     app.register_blueprint(usuarios_bp, url_prefix='/api/usuarios')
 
-    from rutas_chuches import bp as chuches_bp
-    app.register_blueprint(chuches_bp, url_prefix='/api/chuches')
+    from rutas_videojuegos import bp as videojuegos_bp
+    app.register_blueprint(videojuegos_bp, url_prefix='/api/videojuegos')
 
     from rutas_ficheros import bp as ficheros_bp
     app.register_blueprint(ficheros_bp, url_prefix='/api/ficheros')
@@ -23,7 +23,7 @@ def create_app():
 
     @app.errorhandler(500)
     def server_error(error):
-        print('An exception occurred during a request. ERROR:' + error, flush=True)
+        print(f'An exception occurred during a request. ERROR: {error}', flush=True)
         ret={"status": "Internal Server Error"}
         return jsonify(ret), 500
 

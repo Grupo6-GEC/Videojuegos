@@ -1,7 +1,6 @@
 from bd import obtener_conexion
 import sys
 
-
 def convertir_dbvideojuego_a_json(videojuego):
     d = {}
     d['id'] = videojuego[0]
@@ -53,7 +52,7 @@ def obtener_videojuego_por_id(id):
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
-            cursor.execute("SELECT id, nombre, foto, descripcion, precio, creador, ruta_foto, tienda FROM videojuegos WHERE id =" + id)
+            cursor.execute("SELECT id, nombre, foto, descripcion, precio, creador, ruta_foto, tienda FROM videojuegos WHERE id = %s", (id,))
             videojuego = cursor.fetchone()
             if videojuego is not None:
                 videojuegojson = convertir_dbvideojuego_a_json(videojuego)
@@ -70,6 +69,7 @@ def eliminar_videojuego(id):
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
+
             cursor.execute("DELETE FROM videojuegos WHERE id = %s", (id,))
             if cursor.rowcount == 1:
                 ret={"status": "OK" }
@@ -79,6 +79,7 @@ def eliminar_videojuego(id):
         conexion.close()
         code=200
     except:
+
         print("Error al eliminar un videojuego", flush=True)
         ret = {"status": "Failure" }
         code=500

@@ -54,7 +54,10 @@ def actualizar_videojuego():
         nombre = videojuego_json["nombre"]
         foto=videojuego_json["foto"]
         descripcion = videojuego_json["descripcion"]
-        precio=float(videojuego_json["precio"])
+        try:
+            precio=float(videojuego_json["precio"])
+        except (ValueError, TypeError, KeyError):
+            return jsonify({"status":"Precio invalido"}), 400
         creador=videojuego_json["creador"]
         ruta_foto=videojuego_json["ruta_foto"]
         tienda=videojuego_json["tienda"]
@@ -63,3 +66,4 @@ def actualizar_videojuego():
         respuesta={"status":"Bad request"}
         code=400
     return jsonify(respuesta), code
+

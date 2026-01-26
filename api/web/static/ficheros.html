@@ -43,13 +43,9 @@
             };
 
             fetch("/api/ficheros/" + document.getElementById("nombreArchivo").value, requestOptions)
-                .then(response => response.json())
+                .then(response => response.text())
                 .then(result => {
-                    if (result.status == "OK"){
-                        document.getElementById("contenidoArchivo").innerText=result.contenido;
-                    } else {
-                        document.getElementById("contenidoArchivo").innerText="EL CONTENIDO NO ESTA DISPONIBLE";                        
-                    }
+                    document.getElementById("contenidoArchivo").innerText=result;
                 })
                 .catch(error => {
                     console.log('error', error);
