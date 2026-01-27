@@ -2,7 +2,7 @@ from __future__ import print_function
 from flask import request,Blueprint, jsonify
 from funciones_auxiliares import Encoder
 import controlador_usuarios
-from controlador_token import insertar_token_invalido_db, token_valido_no_baneado
+from controlador_token import insertar_token_invalido_db
 from funciones_token import token_existente
 
 bp = Blueprint('usuarios', __name__)

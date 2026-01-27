@@ -61,17 +61,3 @@ def Comprobar_token_invalidado(token):
     except Exception as e: 
         print("Fallo al comprobar token invalido:", repr(e), flush=True)  
         return False
-
-
-def token_valido_no_baneado (token):
-    return 0
-#     token_decodificado = validar_token(token)
-
-#     if not token_decodificado:
-#         return False
-        
-#     if not Comprobar_token_invalidado(token):
-#         return False
-
-#     return token_decodificado
-

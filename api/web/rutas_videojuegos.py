@@ -1,6 +1,5 @@
 from flask import request, Blueprint, jsonify
 import controlador_videojuegos
-from controlador_token import token_valido_no_baneado
 from funciones_token import token_existente
 from funciones_auxiliares import Encoder
 
