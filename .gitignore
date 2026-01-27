@@ -1,2 +1,5 @@
 # Variables de entorno
 .env
+funcion_calculo_test.py
+__pycache__
+api/web/__pycache__
