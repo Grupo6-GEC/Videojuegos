@@ -9,7 +9,8 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <meta http-equiv="Last-Modified" content="0">
-    <title>APP PEPS</title>
+    <link rel="stylesheet" href="css/index.css">
+    <title>Login - Tienda del boss</title>
     <style>
         .error {
             display: none;
@@ -19,9 +20,7 @@
     <script>
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        function verComentarios() {
-            location.href="comentarios.html";
-        }
+        
         function conectar() {
             document.getElementsByClassName("error")[0].style.display = "none";
             var raw = JSON.stringify({
@@ -50,21 +49,22 @@
 </head>
 
 <body>
-    <h1>BIENVENIDO AL SISTEMA DEL PROFE</h1>
-    <label>Usuario</label><input type="text" name="username" id="username"><br>
-    <label>Clave</label><input type="password" name="password" id="password"><br>
-    <label class="error">Usuario/clave erronea</label>
-    <button type="button" onclick="conectar()">ENVIAR</button>
-    <button type="button" onclick="location.href='registro.html'">REGISTRARSE</button>
+    <div class="login-container">
+        <h1>BIENVENIDO A <br>LA TIENDA DEL BOSS</h1>
 
-    <section class="section">
-        <div class="columns">
-            <div class="column">
-                 <h3 class="is-size-3">Ver Comentarios</h3>
-                <button type="button" onclick="verComentarios()" class="button is-success mt-2">Ver comentarios</button>
-            </div>
-        </div>
-    </section>
+        <label>Usuario</label>
+        <input type="text" name="username" id="username">
+
+        <label>Clave</label>
+        <input type="password" name="password" id="password">
+
+        <p id="errorLogin" class="error">Usuario o clave incorrectos</p>
+
+        <button type="button" class="btn-login" onclick="conectar()">ENVIAR</button>
+        <button type="button" class="btn-register" onclick="location.href='registro.html'">
+            REGISTRARSE
+        </button>
+    </div>
 </body>
 
 </html>

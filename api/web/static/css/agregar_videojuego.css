@@ -1,0 +1,118 @@
+/* RESET */
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* FONDO */
+body {
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #1f1c2c, #0f0c29);
+    color: #fff;
+}
+
+/* NAVBAR PERSONALIZADO */
+.navbar {
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
+    box-shadow: 0 4px 15px rgba(255, 204, 0, 0.6);
+}
+
+.navbar-item {
+    font-weight: bold;
+}
+
+/* FORM CONTAINER */
+.form-container {
+    max-width: 700px;
+    margin: auto;
+    background: rgba(20, 20, 40, 0.95);
+    padding: 2.5rem 3rem;
+    border-radius: 18px;
+    box-shadow: 0 0 20px rgba(0, 247, 255, 0.25),
+                0 0 40px rgba(140, 0, 255, 0.2);
+    animation: fadeIn 0.8s ease;
+}
+
+/* TITULO DEL FORMULARIO */
+.form-container h3 {
+    text-align: center;
+    color: #00f7ff;
+    text-shadow: 0 0 10px #00f7ff;
+    margin-bottom: 2rem;
+}
+
+/* LABELS */
+.form-container label {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #c7c7ff;
+}
+
+/* INPUTS */
+.form-container input {
+    margin-bottom: 0.6rem;
+    background: #1e1e3f;
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.form-container input:focus {
+    box-shadow: 0 0 10px #00f7ff;
+    background: #26265c;
+    outline: none;
+}
+
+/* CONTENEDOR DE BOTONES */
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* BOTONES */
+.buttons-container .button {
+    padding: 0.6rem 1.6rem;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* BOTON GUARDAR */
+.button.is-success {
+    background: linear-gradient(135deg, #00f7ff, #6f00ff);
+    color: #000;
+    box-shadow: 0 0 12px #00f7ff;
+}
+
+.button.is-success:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 20px #00f7ff;
+}
+
+/* BOTON VOLVER */
+.button.is-primary {
+    background: transparent;
+    border: 1px solid #00f7ff;
+    color: #00f7ff;
+}
+
+.button.is-primary:hover {
+    background: #00f7ff;
+    color: #000;
+}
+
+/* ANIMACION DEL FORMULARIO */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

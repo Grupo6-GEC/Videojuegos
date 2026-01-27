@@ -1,0 +1,182 @@
+/* RESET */
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* FONDO GENERAL */
+body {
+    background: radial-gradient(circle at top, #1f1c2c, #0f0c29);
+    min-height: 100vh;
+    color: #fff;
+}
+
+/* NAVBAR */
+.navbar {
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
+    box-shadow: 0 4px 15px rgba(255, 204, 0, 0.6);
+}
+
+.navbar-item {
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.navbar-item:hover {
+    background: rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Burger menu toggle para móvil */
+.navbar-burger {
+    color: #000;
+}
+
+.navbar-burger:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* TITULOS */
+.section h3 {
+    color: #00f7ff;
+    text-shadow: 0 0 10px #00f7ff;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* BOTON AGREGAR */
+#enlaceAgregar {
+    background: linear-gradient(135deg, #00f7ff, #6f00ff);
+    color: #000;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00f7ff;
+    transition: all 0.3s ease;
+}
+
+#enlaceAgregar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px #00f7ff;
+}
+
+/* TABLA */
+.table-container {
+    overflow-x: auto; /* Scroll horizontal para móviles */
+}
+
+.table {
+    background: rgba(20, 20, 40, 0.95);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.15),
+        0 0 40px rgba(140, 0, 255, 0.15);
+    width: 100%;
+}
+
+.table thead {
+    background: linear-gradient(135deg, #00f7ff, #6f00ff);
+}
+
+.table thead th {
+    color: #000;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.table tbody tr {
+    transition: all 0.25s ease;
+}
+
+.table tbody tr:hover {
+    background: rgba(0, 247, 255, 0.08);
+    transform: scale(1.01);
+}
+
+.table td {
+    vertical-align: middle;
+    color: #000;
+    white-space: nowrap; /* Evita que el contenido se rompa en columnas pequeñas */
+}
+
+.table img {
+    border-radius: 8px;
+    max-width: 70px;
+    height: auto;
+    box-shadow: 0 0 10px rgba(0, 247, 255, 0.4);
+}
+
+/* BOTONES TABLA */
+.button.is-info {
+    background: linear-gradient(135deg, #00f7ff, #0077ff);
+    color: #000;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.button.is-danger {
+    background: linear-gradient(135deg, #ff4d4d, #ff0000);
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+/* COLUMNAS */
+.section {
+    animation: fadeIn 0.8s ease;
+}
+
+/* ANIMACION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .table thead th, .table tbody td {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.5rem;
+    }
+    #enlaceAgregar {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-menu {
+        display: none;
+    }
+    .navbar-menu.is-active {
+        display: block;
+    }
+    .table img {
+        max-width: 50px;
+    }
+    .table thead th, .table tbody td {
+        font-size: 0.65rem;
+        padding: 0.25rem 0.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .table img {
+        max-width: 40px;
+    }
+    .table thead th, .table tbody td {
+        font-size: 0.6rem;
+        padding: 0.2rem 0.3rem;
+    }
+    #enlaceAgregar {
+        font-size: 0.8rem;
+    }
+}

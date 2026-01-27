@@ -1,0 +1,123 @@
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* FONDO GAMER */
+body {
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #1f1c2c, #0f0c29);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+/* CONTENEDOR LOGIN */
+.login-container {
+    background: rgba(20, 20, 40, 0.95);
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.3),
+        0 0 60px rgba(140, 0, 255, 0.2);
+    animation: fadeIn 1s ease;
+}
+
+/* TITULO */
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    color: #00f7ff;
+    text-shadow: 0 0 10px #00f7ff;
+}
+
+/* LABELS */
+.login-container label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    color: #c7c7ff;
+}
+
+/* INPUTS */
+.login-container input {
+    width: 100%;
+    padding: 0.7rem;
+    margin-bottom: 1.2rem;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background: #1e1e3f;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.login-container input:focus {
+    box-shadow: 0 0 10px #00f7ff;
+    background: #26265c;
+}
+
+/* BOTONES */
+.login-container button {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 0.5rem;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* BOTON LOGIN */
+.btn-login {
+    background: linear-gradient(135deg, #00f7ff, #6f00ff);
+    color: #000;
+    font-weight: bold;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px #00f7ff;
+}
+
+/* BOTON REGISTRO */
+.btn-register {
+    background: transparent;
+    color: #00f7ff;
+    border: 1px solid #00f7ff;
+}
+
+.btn-register:hover {
+    background: #00f7ff;
+    color: #000;
+}
+
+/* ERROR */
+.error {
+    display: none;
+    margin-bottom: 1rem;
+    color: #ff4d4d;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+/* ANIMACION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
