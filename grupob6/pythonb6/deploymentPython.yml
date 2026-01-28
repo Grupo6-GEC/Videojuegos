@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pythonb6
+  namespace: grupo6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pythonb6
+  template:
+    metadata:
+      labels:
+        app: pythonb6
+    spec:
+      containers:
+        - name: pythonb6
+          image: ebdocker2025/pythonb6
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: api-secret

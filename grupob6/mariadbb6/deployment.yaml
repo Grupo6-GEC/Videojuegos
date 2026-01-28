@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb6
+  namespace: grupo6
+  spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb6
+  template:
+    metadata:
+      labels:
+        app: mariadb6
+    spec:
+      containers:
+        - name: mariadb6
+          image: mariadb:lts
+          ports:
+            - containerPort: 3306
+          envFrom:
+            - secretRef:
+                name: mariadb-secret
+          volumeMounts:
+            - name: mariadb-data
+              mountPath: /var/lib/mysql
+            - name: mariadb-init
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: mariadb-data
+          persistentVolumeClaim:
+            claimName: grupob6-pvc
+        - name: mariadb-init
+          configMap:
+            name:  mariadb-initdb
