@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apacheb6
+  namespace: grupo6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apacheb6
+  template:
+    metadata:
+      labels:
+        app: apacheb6
+    spec:
+      containers:
+        - name: apache
+          image: ebdocker2025/apacheb6
+          ports:
+            - containerPort: 80
