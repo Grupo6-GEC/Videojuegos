@@ -4,18 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <meta http-equiv="Last-Modified" content="0">
-    <title>EJEMPLO APP WEB CON CRUD</title>
+    <link rel="stylesheet" href="css/comentarios.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
-    <style>
-        .oculto{
-            display: none;
-        }
-    </style>
+    <title>Comentarios - Tienda del boss</title>
+    
     <script>
+        // ✅ Token y headers
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -24,181 +18,155 @@
             alert("Debes iniciar sesión");
             window.location.href = "index.html";
         }
-
         myHeaders.append("Authorization", "Bearer " + token);
 
-        window.onload = function() {
-            pedirVideojuegos();
-            pedirComentarios();
-            pedirVideojuegos();
-        }
-
-        function pedirVideojuegos(){
-            var requestOptions = {
-                method: 'GET',
-                headers: myHeaders,
-            };
-
-            fetch("/api/videojuegos/", requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    if (result && Array.isArray(result)){
-                        let select = document.getElementById("videojuego");
-                        result.forEach(juego => {
-                            let option = document.createElement("option");
-                            option.value = juego.id;
-                            option.textContent = juego.nombre;
-                            select.appendChild(option);
-                        });
-                    }
-                })
-                .catch(error => console.log('error', error));
-        }
-
-        function guardarComentario() {
-            let contenido = document.getElementById("contenido").value.trim();
-            let id_videojuego = document.getElementById("videojuego").value;
-
-            if (!contenido || !id_videojuego) {
-                alert("Selecciona un juego y escribe un comentario");
-                return;
-            }
-
-            var raw = JSON.stringify({
-                "id_videojuego": parseInt(id_videojuego),
-                "contenido": contenido
-            });
-
-            fetch("/api/comentarios/", {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw
-            })
-            .then(res => res.json())
-            .then(result => {
-                if (result.status === "OK") {
-                    alert("Comentario guardado");
-                    pedirComentarios();
-                } else {
-                    alert(result.message);
-                }
-            });
-        }
-
-        function pintarComentarios(lista){
-            let tbody = document.getElementsByTagName("tbody")[0];
-            tbody.innerHTML = "";
-
-            lista.forEach(comentario => {
-                let texto = `<tr>
-                                <td>${comentario.usuario}</td>
-                                <td>${comentario.videojuego || '-'}</td>
-                                <td>${comentario.contenido}</td>
-                            </tr>`;
-                tbody.innerHTML += texto;
-            });
-        }
-
-        function pedirComentarios(){
-            var requestOptions = {
-                method: 'GET',
-                headers: myHeaders,
-            };
-
-            fetch("/api/comentarios/", requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    if (result){
-                        pintarComentarios(result);
-                    }
-                })
-                .catch(error => {
-                    console.log('error', error);
-                    alert("Ha habido un error al recuperar los comentarios. Refresque la página")
-                });
-        }
-
-        function pedirVideojuegos(){
-
-            var requestOptions = {
-                method: 'GET',
-                headers: myHeaders,
-            };
-
-            fetch("/api/videojuegos/", requestOptions)
-                .then(response => response.json())
+        // Funciones específicas
+        function pedirVideojuegos() {
+            fetch("/api/videojuegos/", { method: 'GET', headers: myHeaders })
+                .then(res => res.json())
                 .then(videojuegos => {
-
-                    if(videojuegos.status == "ERROR") {
-                        alert(videojuegos.message)
-                        return
-                    }
-                    
-
                     let select = document.getElementById("videojuego");
                     select.innerHTML = `<option value="">-- Selecciona un juego --</option>`;
-
                     videojuegos.forEach(v => {
                         let option = document.createElement("option");
                         option.value = v.id;
                         option.textContent = v.nombre;
                         select.appendChild(option);
                     });
-                }).catch(error => {
-                    console.log('error', error);
-                    alert("Ha habido un error al recuperar los videojuegos.")
-                });
+                })
+                .catch(err => console.log(err));
         }
 
+        function guardarComentario() {
+            let contenido = document.getElementById("contenido").value.trim();
+            let id_videojuego = document.getElementById("videojuego").value;
+            if (!contenido || !id_videojuego) {
+                alert("Selecciona un juego y escribe un comentario");
+                return;
+            }
+
+            fetch("/api/comentarios/", {
+                method: 'POST',
+                headers: myHeaders,
+                body: JSON.stringify({ "id_videojuego": parseInt(id_videojuego), "contenido": contenido })
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.status === "OK") {
+                    alert("Comentario guardado");
+                    pedirComentarios();
+                } else alert(result.message);
+            });
+        }
+
+        function pintarComentarios(lista){
+            let tbody = document.querySelector("tbody");
+            tbody.innerHTML = "";
+            lista.forEach(comentario => {
+                tbody.innerHTML += `<tr>
+                    <td>${comentario.usuario}</td>
+                    <td>${comentario.videojuego || '-'}</td>
+                    <td>${comentario.contenido}</td>
+                </tr>`;
+            });
+        }
+
+        function pedirComentarios() {
+            fetch("/api/comentarios/", { method: 'GET', headers: myHeaders })
+                .then(res => res.json())
+                .then(result => {
+                    if(result) pintarComentarios(result);
+                })
+                .catch(err => console.log(err));
+        }
+
+        // Al cargar la página
+        window.onload = function() {
+            pedirVideojuegos();
+            pedirComentarios();
+        }
     </script>
 </head>
+
 <body>
+    <!-- NAVBAR RESPONSIVE -->
+    <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#">Tienda del Boss</a>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="videojuego.html">Videojuegos</a>
+                <a class="navbar-item" href="comentarios.html">Comentarios</a>
+                <a class="navbar-item" href="ficheros.html">Archivos</a>
+                <a class="navbar-item" href="javascript:cerrarSesion()">Cerrar sesión</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Tabla de comentarios -->
     <section class="section">
         <div class="columns">
             <div class="column">
                 <h3 class="is-size-3">Comentarios</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Juego</th>
-                            <th>Contenido</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                   </tbody>
-                </table>
+                <div class="table-container">
+                    <table class="table is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Juego</th>
+                                <th>Contenido</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
-        </div>  
+        </div>
     </section>
 
+    <!-- Agregar comentario -->
     <section class="section">
         <div class="columns">
             <div class="column">
                 <h3 class="is-size-3">Agregar Comentario</h3>
-                <br>
                 <div class="field">
                     <label class="label" for="videojuego">Juego:</label>
                     <div class="control">
-                        <select id="videojuego" class="input">
-                            <option value="">-- Selecciona un juego --</option>
-                        </select>
+                        <select id="videojuego" class="input"></select>
                     </div>
                 </div>
                 <div class="field">
                     <label class="label" for="contenido">Contenido:</label>
                     <div class="control">
-                        <input required type="text" class="input" placeholder="Comentario" name="contenido" id="contenido">
+                        <input required type="text" class="input" placeholder="Comentario" id="contenido">
                     </div>
                 </div>
                 <div class="field">
                     <div class="control">
-                        <button type="button" onclick="guardarComentario()" class="button is-success mt-2">Guardar</button>
+                        <button type="button" onclick="guardarComentario()" class="button is-success">Guardar</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Botón volver -->
+    <section class="section">
+        <div class="columns">
+            <div class="column has-text-centered">
+                <button class="button is-primary" onclick="window.history.back()">Volver</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- JS común para menu y cerrar sesión -->
+    <script src="js/main.js"></script>
 </body>
 </html>

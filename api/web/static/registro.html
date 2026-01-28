@@ -8,51 +8,61 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <meta http-equiv="Last-Modified" content="0">
-    <title>APP PEPS</title>
-    <style>
-        .error{
-            display: none;
-            color: red;
-        }
-    </style>
+
+    <title>Registro - Tienda del boss</title>
+
+    <link rel="stylesheet" href="css/registro.css">
+
     <script>
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
         function conectar(){
-            document.getElementsByClassName("error")[0].style.display="none";
+            document.getElementById("errorRegistro").style.display = "none";
+
             var raw = JSON.stringify({
                 "username": document.getElementById("username").value,
                 "password": document.getElementById("password").value,
                 "profile": document.getElementById("profile").value
             });
 
-            var requestOptions = {
+            fetch("/api/usuarios/registro", {
                 method: 'POST',
                 headers: myHeaders,
                 body: raw
-            };
-
-            fetch("/api/usuarios/registro", requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    if (result.status=="OK"){
-                        alert("Usuario registrado correctamente");
-                        location.href="index.html";
-                    } else {
-                        document.getElementsByClassName("error")[0].style.display="block";
-                    }
-                })
-                .catch(error => console.log('error', error)); 
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.status === "OK"){
+                    alert("Usuario registrado correctamente");
+                    location.href = "index.html";
+                } else {
+                    document.getElementById("errorRegistro").style.display = "block";
+                }
+            })
+            .catch(error => console.log('error', error));
         }
     </script>
 </head>
+
 <body>
-    <h1>REGISTRO DEL SISTEMA</h1>
-    <label>Usuario</label><input type="text" name="username" id="username" required><br>
-    <label>Clave</label><input type="password" name="password" id="password" required><br>
-    <label>Perfil</label><input type="text" disabled name="profile" id="profile" value="normal"><br>
-    <label class="error">Usuario ya existe</label>
-    <button type="button" onclick="conectar()">ENVIAR</button>
+    <div class="register-container">
+        <h1>REGISTRARSE EN <br>LA TIENDA DEL BOSS</h1>
+
+        <label>Usuario</label>
+        <input type="text" id="username" required>
+
+        <label>Clave</label>
+        <input type="password" id="password" required>
+
+        <label>Perfil</label>
+        <input type="text" id="profile" value="normal" disabled>
+
+        <p id="errorRegistro" class="error">El usuario ya existe</p>
+
+        <button type="button" class="btn-register" onclick="conectar()">
+            REGISTRARSE
+        </button>
+    </div>
 </body>
 </html>

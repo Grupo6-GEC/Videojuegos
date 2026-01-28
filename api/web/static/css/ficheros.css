@@ -1,0 +1,102 @@
+/* FONDO GENERAL */
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    color: #fff;
+}
+
+/* TITULOS */
+.title {
+    text-align: center;
+    color: #00f7ff;
+    text-shadow: 0 0 8px #6f00ff;
+}
+
+/* CAJAS */
+.box {
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
+    padding: 2rem;
+}
+
+.box label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.box .input,
+.box .textarea {
+    margin-bottom: 1rem;
+}
+
+/* INPUTS */
+.input,
+.textarea {
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #00f7ff;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.input:focus,
+.textarea:focus {
+    outline: none;
+    box-shadow: 0 0 10px #00f7ff;
+    border-color: #6f00ff;
+}
+
+/* TEXTAREA */
+.textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* BOTONES */
+.button {
+    font-weight: bold;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.button.is-success {
+    background: linear-gradient(135deg, #00f7ff, #6f00ff);
+    color: #000;
+    box-shadow: 0 0 10px #00f7ff;
+}
+
+.button.is-info {
+    background: linear-gradient(135deg, #ff7f50, #ff1493);
+    color: #fff;
+    box-shadow: 0 0 10px #ff1493;
+}
+
+.button:hover {
+    transform: scale(1.05);
+}
+
+.volver-container {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+.button-volver {
+    font-size: 1rem;
+    padding: 0.6rem 1.5rem;
+    background: linear-gradient(135deg, #ffb347, #ffcc33);
+    color: #000;
+    box-shadow: 0 0 15px #ffcc33;
+    font-weight: bold;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.button-volver:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px #ffcc33;
+}

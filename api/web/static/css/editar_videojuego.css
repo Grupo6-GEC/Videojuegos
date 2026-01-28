@@ -1,0 +1,114 @@
+/* GENERAL */
+body {
+    background: linear-gradient(135deg, #1c1c1c, #2c2c2c);
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* TITULOS */
+h1, h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #00f7ff;
+    text-shadow: 1px 1px 5px #6f00ff;
+}
+
+/* FORMULARIOS */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+label {
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.input {
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid #00f7ff;
+    transition: all 0.3s ease;
+}
+
+.input:focus {
+    outline: none;
+    box-shadow: 0 0 10px #00f7ff;
+    border-color: #6f00ff;
+}
+
+/* BOTONES */
+.button {
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00f7ff;
+    transition: all 0.3s ease;
+}
+
+.button.is-success {
+    background: linear-gradient(135deg, #00f7ff, #6f00ff);
+    color: #000;
+}
+
+.button.is-success:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #6f00ff;
+}
+
+.button.is-primary {
+    background: linear-gradient(135deg, #ff7f50, #ff1493);
+    color: #fff;
+}
+
+.button.is-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ff1493;
+}
+
+/* PREVIEW DE IMAGEN */
+#fotoPreview {
+    display: block;
+    max-width: 300px;
+    margin: 1rem auto;
+    border-radius: 10px;
+    border: 2px solid #00f7ff;
+    box-shadow: 0 0 15px rgba(0, 247, 255, 0.6);
+}
+
+/* INPUT DE FILE */
+input[type="file"] {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid #00f7ff;
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+/* LINKS Y NAVBAR */
+.navbar {
+    background: linear-gradient(135deg, #6f00ff, #00f7ff);
+    color: #fff;
+}
+
+.navbar a.navbar-item {
+    color: #fff;
+    font-weight: bold;
+}
+
+.navbar a.navbar-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+/* MARGENES */
+.section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
