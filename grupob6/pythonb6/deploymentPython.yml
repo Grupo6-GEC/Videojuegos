@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pythonb6
-          image: ebdocker2025/pythonb6
+          image: ebdocker2025/pythonb6:1.0
           ports:
             - containerPort: 8080
           envFrom:
