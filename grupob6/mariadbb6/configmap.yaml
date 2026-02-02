@@ -47,7 +47,7 @@ data:
     ('charlie', 'charlie123', 'user'),
     ('diana', 'diana123', 'user'),
     ('eve', 'eve123', 'user'),
-    ('root','1234', 'admin');
+    ('root','/somosunoschulos$123', 'admin');
 
     INSERT INTO videojuegos (nombre, foto, descripcion, precio, creador, ruta_foto, tienda) VALUES
     ('Elden Ring', 'eldenring.jpg', 'RPG de mundo abierto con mucha exploración', 59.99, 'FromSoftware', '/imagenes/eldenring.jpg', 'Steam'),

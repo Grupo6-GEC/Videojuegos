@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <title>Add videojuego - Tienda del boss</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="css/agregar_videojuego.css">
+
+    <script>
+        // Token y Headers (necesarios para cerrar sesión y guardar)
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("Debes iniciar sesión");
+            window.location.href = "login.html";
+        }
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + token);
+
+        // Función específica de esta página
+        function guardar() {
+            let nombre = document.getElementById("nombre").value;
+            let foto = document.getElementById("foto").value;
+            let descripcion = document.getElementById("descripcion").value;
+            let precio = document.getElementById("precio").value;
+            let creador = document.getElementById("creador").value;
+            let ruta_foto = document.getElementById("ruta_foto").value;
+            let tienda = document.getElementById("tienda").value;
+
+            let datos = JSON.stringify({
+                "nombre": nombre,
+                "foto": foto,
+                "descripcion": descripcion,
+                "precio": precio,
+                "creador": creador,
+                "ruta_foto": ruta_foto,
+                "tienda": tienda
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: datos
+            };
+
+            fetch("/api/videojuegos", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status == "OK") {
+                        alert("Videojuego almacenado");
+                        location.href = "videojuego.html";
+                    } else {
+                        alert("El videojuego no ha podido ser almacenado");
+                    }
+                })
+                .catch(error => {
+                    console.log('error', error);
+                    alert("Se ha producido un error y el videojuego no ha podido ser almacenado");
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#">Tienda del Boss</a>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="videojuego.html">Videojuegos</a>
+                <a class="navbar-item" href="comentarios.html">Comentarios</a>
+                <a class="navbar-item" href="ficheros.html">Archivos</a>
+                <a class="navbar-item" href="javascript:cerrarSesion()">Cerrar sesión</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="form-container">
+            <h3 class="is-size-3">Agregar Videojuego</h3>
+
+            <form>
+                <label>Nombre</label>
+                <input class="input" id="nombre" required>
+
+                <label>Foto (URL)</label>
+                <input class="input" id="foto" required>
+
+                <label>Descripción</label>
+                <input class="input" id="descripcion" required>
+
+                <label>Precio</label>
+                <input type="number" class="input" id="precio" required>
+
+                <label>Creador</label>
+                <input class="input" id="creador" required>
+
+                <label>Ruta foto</label>
+                <input class="input" id="ruta_foto" required>
+
+                <label>Tienda</label>
+                <input class="input" id="tienda" required>
+
+                <div class="buttons-container">
+                    <button type="button" onclick="guardar()" class="button is-success">
+                        Guardar
+                    </button>
+                    <a href="videojuego.html" class="button is-primary">
+                        Volver
+                    </a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Incluir JS común al final -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

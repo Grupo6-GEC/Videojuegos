@@ -9,4 +9,4 @@ spec:
     - port: 80
       nodePort: 30706
   selector:
-    app: apache6
+    app: apacheb6

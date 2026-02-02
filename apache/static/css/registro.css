@@ -1,0 +1,111 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* FONDO */
+body {
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #1f1c2c, #0f0c29);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+/* CONTENEDOR */
+.register-container {
+    background: rgba(20, 20, 40, 0.95);
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.3),
+        0 0 60px rgba(140, 0, 255, 0.2);
+    animation: fadeIn 1s ease;
+}
+
+/* TITULO */
+.register-container h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.7rem;
+    letter-spacing: 2px;
+    color: #00f7ff;
+    text-shadow: 0 0 10px #00f7ff;
+}
+
+/* LABEL */
+.register-container label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    color: #c7c7ff;
+}
+
+/* INPUTS */
+.register-container input {
+    width: 100%;
+    padding: 0.7rem;
+    margin-bottom: 1.2rem;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background: #1e1e3f;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.register-container input:focus {
+    box-shadow: 0 0 10px #00f7ff;
+    background: #26265c;
+}
+
+.register-container input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* BOTON */
+.btn-register {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    background: linear-gradient(135deg, #00f7ff, #6f00ff);
+    color: #000;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-register:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px #00f7ff;
+}
+
+/* ERROR */
+.error {
+    display: none;
+    margin-bottom: 1rem;
+    color: #ff4d4d;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+/* ANIMACION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
