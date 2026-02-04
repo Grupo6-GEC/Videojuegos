@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mariadb6
-  namespace: grupo6
+  namespace: grupob6
 spec:
   replicas: 1
   selector:

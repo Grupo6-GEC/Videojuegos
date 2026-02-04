@@ -10,7 +10,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: manual
   hostPath:
-    path: /mnt/data/profesor
+    path: /mnt/data/mysql-grupob6
 
 ---
 
@@ -18,7 +18,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: grupob6-pvc
-  namespace: grupo6
+  namespace: grupob6
 spec:
   accessModes:
     - ReadWriteOnce
