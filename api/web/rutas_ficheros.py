@@ -47,7 +47,7 @@ def ver(archivo):
         return jsonify({"status": "ERROR", "message": "Token inválido"}), 401
 
     basepath = os.path.dirname(__file__)
-    ruta_fichero = os.path.join(basepath, 'static/archivos', archivo)
+    ruta_fichero = os.path.join(basepath, 'archivos', archivo)
     try:
         contenido = subprocess.getoutput("cat " + ruta_fichero)
         return  jsonify({"contenido": contenido}), 200 #, {'Content-Type': 'text/plain; charset=utf-8'}

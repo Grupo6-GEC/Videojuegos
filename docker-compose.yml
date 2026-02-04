@@ -40,8 +40,8 @@ services:
       - mariadb
   apache:
     build:
-      context: .  # El contexto es la raíz del proyecto
-      dockerfile: apache/Dockerfile
+      context: ./apache  # El contexto es la raíz del proyecto
+      dockerfile: Dockerfile
     container_name: apacheb6
     restart: unless-stopped
     ports:
