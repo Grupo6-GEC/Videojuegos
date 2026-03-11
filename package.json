@@ -1,9 +1,9 @@
 {
  "scripts": {
-   "cypress:run": "cypress run",
+   "cypress:run": "cypress run --reporter junit --reporter-options mochaFile=cypress-results.xml",
    "cypress:open": "cypress open"
  },
  "devDependencies": {
-   "cypress": "^13.0.0"
+   "cypress": "^13.0.0",
+   "mocha-junit-reporter": "^2.2.0"
  }
-}
