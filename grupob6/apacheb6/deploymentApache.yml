@@ -25,6 +25,6 @@ spec:
     spec:
       containers:
         - name: apache
-          image: ebdocker2025/apacheb6:1.1
+          image: ebdocker2025/apacheb6:1.2
           ports:
             - containerPort: 80
